@@ -1,0 +1,28 @@
+.welcome {
+  height: 100%;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.welcome .content .subTitle {
+  font-size: 30px;
+  line-height: 42px;
+  color: var(--dark-color);
+}
+.welcome .content .title {
+  font-size: 40px;
+  line-height: 62px;
+  color: #1677ff;
+}
+.welcome .content .desc {
+  text-align: center;
+  font-size: 14px;
+  color: #ddd;
+}
+.welcome .img {
+  width: 370px;
+  height: 320px;
+  background: url("/imgs/welcome-bg.png") no-repeat;
+  background-size: contain;
+}
