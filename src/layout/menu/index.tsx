@@ -4,7 +4,7 @@ import {
   UserOutlined,
   LaptopOutlined,
   SolutionOutlined,
-  MailOutlined,
+  MenuOutlined,
   UsergroupDeleteOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
@@ -22,7 +22,7 @@ const items: MenuItem[] = [
     icon: <UsergroupDeleteOutlined />,
     children: [
       { key: "/userList", label: "用户列表", icon: <UserOutlined /> },
-      { key: "/menuList", label: "菜单管理", icon: <MailOutlined /> },
+      { key: "/menuList", label: "菜单管理", icon: <MenuOutlined /> },
       { key: "/roleList", label: "角色管理", icon: <SolutionOutlined /> },
       { key: "/deptList", label: "部门管理", icon: <LaptopOutlined /> },
     ],

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Table, Space, Form, Input, Modal } from "antd";
+import { Button, Table, Space, Form, Input, Modal, message } from "antd";
 import { useState, useRef } from "react";
 import type { TableColumnsType, GetProp, TableProps } from "antd";
 import api from "@/apis";
@@ -142,6 +142,7 @@ export default function Depth() {
   };
   const handleDelOk = async (id: string) => {
     await api.deleteDept({ _id: id });
+    message.success("删除成功");
     getDepthData();
   };
   const handleReset = () => {
