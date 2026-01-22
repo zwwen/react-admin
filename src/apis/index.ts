@@ -14,6 +14,7 @@ import type {
   IRoleEditParams,
   IRoleSearchParams,
   IPermission,
+  IUserSearchParams,
 } from "@/types";
 export default {
   // 用户信息模块接口
@@ -31,8 +32,8 @@ export default {
   },
   // 用户管理模块接口
   // 获取用户列表
-  getUserList(params: { state: number; pageNum: number; pageSize: number }) {
-    return request.get("/users/list", params);
+  getUserList(params: IUserSearchParams) {
+    return request.get<ResultData<IUser>>("/users/list", params);
   },
   // 获取所有用户列表
   getAllUserList() {
@@ -43,15 +44,15 @@ export default {
     return request.post("/users/upload", params);
   },
   // 添加用户
-  createUser(params: IUser) {
+  createUser(params: ICreateMenuParams) {
     return request.post("/users/create", params);
   },
   // 修改用户
-  updateUser(params: IUser) {
+  updateUser(params: IEditMenuParams) {
     return request.post("/users/edit", params);
   },
   // 删除用户
-  deleteUser(params: { userIds: string[] }) {
+  deleteUser(params: { userIds: number[] }) {
     return request.post("/users/delete", params);
   },
   // 部门管理模块接口
@@ -93,7 +94,7 @@ export default {
   // 角色管理模块接口
   // 获取所有角色列表
   getAllRoleList() {
-    return request.get("/roles/allList");
+    return request.get<IRole[]>("/roles/allList");
   },
   // 获取角色
   getRoleList(params: IRoleSearchParams) {
