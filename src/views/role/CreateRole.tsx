@@ -1,0 +1,69 @@
+import { Form, Input, message, Modal } from "antd";
+import { useImperativeHandle, useState, type RefObject } from "react";
+import api from "@/apis";
+import type { IRole } from "@/types";
+interface IProps {
+  mref: RefObject<{
+    openModal: (type: string, data?: IRole | { parentId: string }) => void;
+  }>;
+  update: () => void;
+}
+const CreateRole = (props: IProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [action, setAction] = useState<string>("create");
+  const [form] = Form.useForm();
+
+  const handleOk = async () => {
+    const valid = await form.validateFields();
+    if (!valid) return;
+    if (action === "create") {
+      await api.createRole(form.getFieldsValue());
+      message.success("创建成功");
+    } else if (action === "edit") {
+      await api.updateRole(form.getFieldsValue());
+      message.success("编辑成功");
+    }
+    handleCancel();
+    props.update();
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    form.resetFields();
+  };
+  const openModal = (type: string, data?: IRole | { parentId: string }) => {
+    setAction(type);
+    setIsModalOpen(true);
+    if (data) {
+      form.setFieldsValue(data);
+    }
+  };
+  useImperativeHandle(props.mref, () => ({ openModal }));
+  return (
+    <Modal
+      title={action === "create" ? "创建角色" : "编辑角色"}
+      open={isModalOpen}
+      width={800}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      okText="确认"
+      cancelText="取消"
+    >
+      <Form form={form} labelAlign="right" labelCol={{ span: 4 }}>
+        <Form.Item hidden name="_id">
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="角色名称"
+          name="roleName"
+          rules={[{ required: true, message: "请输入角色名称" }]}
+        >
+          <Input placeholder="请输入角色名称" />
+        </Form.Item>
+        <Form.Item label="备注" name="remark">
+          <Input.TextArea placeholder="请输入备注" />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+export default CreateRole;

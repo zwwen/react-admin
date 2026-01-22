@@ -8,19 +8,53 @@ import type {
   ICreateMenuParams,
   IEditMenuParams,
   IMenuSearchParams,
+  ResultData,
+  IRole,
+  IRoleCreateParams,
+  IRoleEditParams,
+  IRoleSearchParams,
+  IPermission,
 } from "@/types";
 export default {
+  // 用户信息模块接口
   // 登录接口
   login: (data: ILoginParams) => {
     return request.post("/users/login", data);
   },
-  // 获取用户
-  getUserList() {
-    return request.get("/users/list");
+  //   获取用户信息接口
+  getUserInfo() {
+    return request.get("/users/getUserInfo");
   },
+  //   获取用户权限列表接口
+  getPermissionList() {
+    return request.get("/users/getPermissionList");
+  },
+  // 用户管理模块接口
+  // 获取用户列表
+  getUserList(params: { state: number; pageNum: number; pageSize: number }) {
+    return request.get("/users/list", params);
+  },
+  // 获取所有用户列表
   getAllUserList() {
     return request.get<IUser[]>("/users/all/list");
   },
+  // 用户头像上传
+  uploadAvatar(params: FormData) {
+    return request.post("/users/upload", params);
+  },
+  // 添加用户
+  createUser(params: IUser) {
+    return request.post("/users/create", params);
+  },
+  // 修改用户
+  updateUser(params: IUser) {
+    return request.post("/users/edit", params);
+  },
+  // 删除用户
+  deleteUser(params: { userIds: string[] }) {
+    return request.post("/users/delete", params);
+  },
+  // 部门管理模块接口
   // 获取部门列表
   getDeptList(params?: IDeptSearchParams) {
     return request.get<IDept[]>("/dept/list", params);
@@ -38,7 +72,7 @@ export default {
   deleteDept(params: { _id: string }) {
     return request.post("/dept/delete", params);
   },
-
+  // 菜单管理模块接口
   // 获取菜单
   getMenuList(params: IMenuSearchParams) {
     return request.get<IMenu[]>("/menu/list", params);
@@ -56,16 +90,46 @@ export default {
     return request.post("/menu/delete", params);
   },
 
-  //   获取用户信息接口
-  getUserInfo: () => {
-    return request.get("/users/getUserInfo");
-  },
-  //   获取用户权限列表接口
-  getUserAuthList() {
-    return request.get("/users/getPermissionList");
+  // 角色管理模块接口
+  // 获取所有角色列表
+  getAllRoleList() {
+    return request.get("/roles/allList");
   },
   // 获取角色
-  getRoleList() {
-    return request.get("/roles/list");
+  getRoleList(params: IRoleSearchParams) {
+    return request.get<ResultData<IRole>>("/roles/list", params);
+  },
+  // 删除角色
+  deleteRole(params: { _id: string }) {
+    return request.post("/roles/delete", params);
+  },
+  // 创建角色
+  createRole(params: IRoleCreateParams) {
+    return request.post("/roles/create", params);
+  },
+  // 设置权限
+  setPermission(params: IPermission) {
+    return request.post("/roles/update/permission", params);
+  },
+  // 编辑角色
+  updateRole(params: IRoleEditParams) {
+    return request.post("/roles/edit", params);
+  },
+
+  // 工作台模块接口
+  getReportData() {
+    return request.get("/order/dashboard/getReportData");
+  },
+  getLineData() {
+    return request.get("/order/dashboard/getLineData");
+  },
+  getPieCityData() {
+    return request.get("/order/dashboard/getPieCityData");
+  },
+  getPieAgeData() {
+    return request.get("/order/dashboard/getPieAgeData");
+  },
+  getRadarData() {
+    return request.get("/order/dashboard/getRadarData");
   },
 };

@@ -3,6 +3,18 @@ export interface IResponse<T> {
   msg: string;
   data: T;
 }
+export interface ResultData<T> {
+  list: T[];
+  page: {
+    total: number | 0;
+    pageNum: number;
+    pageSzie: number;
+  };
+}
+export interface IPageParams {
+  pageNum: number;
+  pageSize: number;
+}
 // 登录模块
 export interface ILoginParams {
   userName: string;
@@ -38,6 +50,21 @@ export interface IUser {
   deptName: string;
   userImg: string;
 }
+// 创建用户参数
+export interface ICreateUserParams {
+  userName: string;
+  userEmail: string;
+  mobile?: number;
+  deptId: string;
+  job?: string;
+  state?: number;
+  roleList: string[];
+  userImg: string;
+}
+// 更新用户参数
+export interface IUpdateUserParams extends ICreateUserParams {
+  userId: string;
+}
 // 菜单模块
 // 创建菜单参数
 export interface ICreateMenuParams {
@@ -69,4 +96,35 @@ export interface IMenu extends ICreateMenuParams {
 export interface IMenuSearchParams {
   menuName?: string;
   menuState?: number; // 菜单状态 1-启用 2-禁用
+}
+
+// 角色模块
+export interface IRole {
+  _id: string;
+  roleName: string;
+  remark: string;
+  createTime: string;
+  updateTime: string;
+  permissionList: {
+    checkedKeys: string[];
+    halfCheckedKeys: string[];
+  };
+}
+
+export interface IRoleSearchParams extends IPageParams {
+  roleName?: string;
+}
+export interface IRoleCreateParams {
+  roleName: string;
+  remark: string;
+}
+export interface IRoleEditParams extends IRoleCreateParams {
+  _id: string;
+}
+export interface IPermission {
+  _id: string;
+  permissionList: {
+    checkedKeys: string[];
+    halfCheckedKeys: string[];
+  };
 }

@@ -70,7 +70,9 @@ export default function CreateDept(props: IProps) {
         cancelText="取消"
       >
         <Form form={form} labelAlign="right" labelCol={{ span: 4 }}>
-          <Form.Item hidden name="_id"></Form.Item>
+          <Form.Item hidden name="_id">
+            <Input />
+          </Form.Item>
           <Form.Item label="上级部门" name="parentId">
             <TreeSelect
               placeholder="请选择上级部门"
