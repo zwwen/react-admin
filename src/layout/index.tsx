@@ -29,7 +29,6 @@ const LayoutCon: React.FC = () => {
   const { menuPathList } = useRouteLoaderData("layout");
   const staticPathList = ["/login", "/403", "/welcome", "/notfound"];
   const route = searchRoute(pathname, router);
-  console.log(route, "-----");
   // pathname
   if (route && route.meta?.auth) {
     // 需要鉴权 处理自己的逻辑

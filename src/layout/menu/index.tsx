@@ -67,7 +67,6 @@ const SiberMenu = () => {
 
   const getTreeMenu = (menuList: IMenu[], treeList: MenuItem[] = []) => {
     menuList.forEach((item) => {
-      console.log("item", item);
       if (item.menuType === 1 && item.menuState === 1) {
         if (item.buttons) {
           return treeList.push(

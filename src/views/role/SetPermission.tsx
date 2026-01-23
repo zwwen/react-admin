@@ -50,7 +50,7 @@ const SetPermission = (props: IProps) => {
     setIsModalOpen(false);
     form.resetFields();
   };
-  const openModal = (type: string, data?: IRole) => {
+  const openModal = (_type: string, data?: IRole) => {
     setRoleInfo(data as IRole);
     setIsModalOpen(true);
     setCheckKeys(data?.permissionList.checkedKeys || []);

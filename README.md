@@ -629,3 +629,47 @@ type TupleToObjectPoint = TupleToObject<["x", "y"], number>; // { x: number; y: 
 # TypeScript 内置的高级类型和类型工具函数的区别
 
 - TypeScript 内置的高级类型和类型工具函数都可以在代码中使用新的类型来代替原始类型。但是，它们的用途和使用方式有所不同。 内置的高级类型主要用于合并多个类型的属性和方法，形成一个新的类型。类型工具函数主要用于操作类型参数，形成一个新的类型。
+
+# 性能优化
+
+- 打包结果分析工具
+  > pnpm i rollup-plugin-visualizer --save-dev,在 vite.config.ts 中引入插件进行配置
+  > pnpm i vite-plugin-inspect --save-dev,在 vite.config.ts 中引入插件进行配置
+- 路由懒加载：使用 React.lazy 和 React.Suspense 函数实现路由懒加载，避免在初始加载时加载所有路由组件。
+- 拆包分包：将应用程序拆分成多个小的包，每个包只包含应用程序的一部分功能。这可以减少应用程序的初始加载时间，并且可以在需要时动态加载其他包。
+- 预加载：preload 会优先加载资源，以便页面渲染时能立即使用；prefetch 则是在空闲时间预加载应用程序的某些部分，以便在需要时可以快速访问它们。
+
+```typescript
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+import Inspect from "vite-plugin-inspect";
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        // manualChunks{
+        //   "react-vendor": ["react", "react-dom", "react-router-dom"],
+        //   "antd-vendor": ["antd"],
+        //   "echarts-vendor": ["echarts"],
+        // },
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            return id
+              .toString()
+              .split("node_modules/")[1]
+              .split("/")[0]
+              .toString();
+          }
+        },
+      },
+    },
+  },
+  plugins: [
+    Inspect(),
+    visualizer({
+      open: true,
+      filename: "stats.html",
+    }),
+  ],
+});
+```
