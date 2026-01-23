@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import type { IDept } from "@/types";
 import { formatDateToChinese } from "@/utils";
 import CreateDept from "./CreateDept";
+import styles from "./index.module.less";
 type TablePaginationConfig = Exclude<
   GetProp<TableProps, "pagination">,
   boolean
@@ -154,7 +155,7 @@ export default function Depth() {
     deptRef.current?.openModal("create");
   };
   return (
-    <div>
+    <div className={styles["dept-list"]}>
       <Form className="search-form" layout="inline" form={form}>
         <Form.Item name="deptName" label="部门名称">
           <Input placeholder="请输入部门名称" />

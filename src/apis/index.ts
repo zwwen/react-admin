@@ -15,6 +15,10 @@ import type {
   IRoleSearchParams,
   IPermission,
   IUserSearchParams,
+  IReportData,
+  ILineData,
+  IPieData,
+  IRadarData,
 } from "@/types";
 export default {
   // 用户信息模块接口
@@ -24,11 +28,13 @@ export default {
   },
   //   获取用户信息接口
   getUserInfo() {
-    return request.get("/users/getUserInfo");
+    return request.get<IUser>("/users/getUserInfo");
   },
   //   获取用户权限列表接口
   getPermissionList() {
-    return request.get("/users/getPermissionList");
+    return request.get<{ menuList: IMenu[]; buttonList: string[] }>(
+      "/users/getPermissionList"
+    );
   },
   // 用户管理模块接口
   // 获取用户列表
@@ -119,18 +125,18 @@ export default {
 
   // 工作台模块接口
   getReportData() {
-    return request.get("/order/dashboard/getReportData");
+    return request.get<IReportData>("/order/dashboard/getReportData");
   },
   getLineData() {
-    return request.get("/order/dashboard/getLineData");
+    return request.get<ILineData>("/order/dashboard/getLineData");
   },
   getPieCityData() {
-    return request.get("/order/dashboard/getPieCityData");
+    return request.get<IPieData>("/order/dashboard/getPieCityData");
   },
   getPieAgeData() {
-    return request.get("/order/dashboard/getPieAgeData");
+    return request.get<IPieData>("/order/dashboard/getPieAgeData");
   },
   getRadarData() {
-    return request.get("/order/dashboard/getRadarData");
+    return request.get<IRadarData>("/order/dashboard/getRadarData");
   },
 };

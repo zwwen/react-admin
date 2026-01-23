@@ -7,6 +7,7 @@ import { formatDateToChinese } from "@/utils";
 import CreateRole from "./CreateRole";
 import SetPermission from "./SetPermission";
 import { useAntdTable } from "ahooks";
+import styles from "./index.module.less";
 const Role = () => {
   const [form] = Form.useForm();
   const roleRef = useRef<{
@@ -139,7 +140,7 @@ const Role = () => {
     roleRef.current?.openModal("create");
   };
   return (
-    <div className="role-wrap">
+    <div className={styles["role-list"]}>
       <Form form={form} className="search-form" layout="inline">
         <Form.Item label="角色名称" name="roleName">
           <Input />

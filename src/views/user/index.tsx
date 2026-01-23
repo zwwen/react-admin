@@ -16,6 +16,8 @@ import { useAntdTable } from "ahooks";
 import type { IUser, IUserSearchParams } from "@/types";
 import CreateUser from "./CreateUser";
 import SearchForm from "@/components/SearchForm";
+import AuthButton from "@/components/AuthButton";
+import styles from "./index.module.less";
 const User = () => {
   const [form] = Form.useForm();
   const userRef = useRef<{
@@ -160,7 +162,7 @@ const User = () => {
   };
 
   return (
-    <div className="user-list">
+    <div className={styles["user-list"]}>
       <SearchForm
         form={form}
         className="search-form"
@@ -188,9 +190,16 @@ const User = () => {
         <div className="header">
           <div className="title">角色列表</div>
           <div className="action">
-            <Button type="primary" onClick={handleCreate}>
+            {/* <Button type="primary" onClick={handleCreate}>
               新增
-            </Button>
+            </Button> */}
+            <AuthButton
+              auth="user@create"
+              type="primary"
+              onClick={handleCreate}
+            >
+              新增
+            </AuthButton>
             <Button type="primary" danger onClick={handlePatchConfirm}>
               批量删除
             </Button>

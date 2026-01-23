@@ -15,6 +15,7 @@ import api from "@/apis";
 import type { IMenu } from "@/types";
 import { formatDateToChinese } from "@/utils";
 import CreateMenu from "./CreateMenu";
+import styles from "./index.module.less";
 type TablePaginationConfig = Exclude<
   GetProp<TableProps, "pagination">,
   boolean
@@ -199,7 +200,7 @@ export default function Menu() {
     menuRef.current?.openModal("create");
   };
   return (
-    <div>
+    <div className={styles["menu-list"]}>
       <Form className="search-form" layout="inline" form={form}>
         <Form.Item name="menuName" label="菜单名称">
           <Input placeholder="请输入菜单名称" />

@@ -1,11 +1,13 @@
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Dropdown, Button } from "antd";
+import { Dropdown, Button, Switch, Space } from "antd";
 import storage from "@/utils/storage";
 import type { MenuProps } from "antd";
-import { UseStore } from "@/store";
+import { useStore } from "@/store";
 import styles from "./index.module.less";
+import BreadCrumb from "./BreadCrumb";
 export default function header() {
-  const { collapsed, updateCollapsed } = UseStore();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { collapsed, updateCollapsed, isDark, updateTheme } = useStore();
   const items: MenuProps["items"] = [
     {
       key: "userInfo",
@@ -26,6 +28,16 @@ export default function header() {
   const toggleCollapsed = () => {
     updateCollapsed();
   };
+  const toggleTheme = (isDark: boolean) => {
+    if (isDark) {
+      document.documentElement.dataset.theme = "dark";
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.dataset.theme = "light";
+      document.documentElement.classList.remove("dark");
+    }
+    updateTheme(isDark);
+  };
   return (
     <div className={styles.navHeader}>
       <div className={styles.left}>
@@ -38,11 +50,20 @@ export default function header() {
             borderRadius: 0,
           }}
         />
+        <BreadCrumb />
       </div>
       <div className={styles.right}>
-        <Dropdown menu={{ items, onClick }} trigger={["click"]}>
-          <span className={styles.nickName}>通用基础中台</span>
-        </Dropdown>
+        <Space>
+          <Switch
+            checkedChildren="暗黑"
+            unCheckedChildren="默认"
+            checked={isDark}
+            onChange={toggleTheme}
+          ></Switch>
+          <Dropdown menu={{ items, onClick }} trigger={["click"]}>
+            <span className={styles.nickName}>通用基础中台</span>
+          </Dropdown>
+        </Space>
       </div>
     </div>
   );
